@@ -71,7 +71,11 @@ var ExcelFile = function (_React$Component) {
             return row[column.props.value];
           };
           var itemValue = getValue(row);
-          sheetRow.push(isNaN(itemValue) ? itemValue || "" : itemValue);
+          // sheetRow.push(isNaN(itemValue) ? itemValue || "" : itemValue);
+          sheetRow.push({
+            value: isNaN(itemValue) ? itemValue || "" : itemValue,
+            style: style
+          });
         });
 
         sheetData.push(sheetRow);

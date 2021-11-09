@@ -7,7 +7,7 @@ import ExcelSheet from "../elements/ExcelSheet";
 import {
   strToArrBuffer,
   excelSheetFromAoA,
-  excelSheetFromDataSet
+  excelSheetFromDataSet,
 } from "../utils/DataUtil";
 
 class ExcelFile extends React.Component {
@@ -19,22 +19,22 @@ class ExcelFile extends React.Component {
     filename: PropTypes.string,
     fileExtension: PropTypes.string,
     element: PropTypes.any,
-    children: function(props, propName, componentName) {
-      React.Children.forEach(props[propName], child => {
+    children: function (props, propName, componentName) {
+      React.Children.forEach(props[propName], (child) => {
         if (child.type !== ExcelSheet) {
           throw new Error(
             "<ExcelFile> can only have <ExcelSheet> as children. "
           );
         }
       });
-    }
+    },
   };
 
   static defaultProps = {
     hideElement: false,
     filename: "Download",
     fileExtension: "xlsx",
-    element: <button>Download</button>
+    element: <button>Download</button>,
   };
 
   constructor(props) {
@@ -52,23 +52,27 @@ class ExcelFile extends React.Component {
   createSheetData(sheet) {
     const columns = sheet.props.children;
     const sheetData = [
-      React.Children.map(columns, column => column.props.label)
+      React.Children.map(columns, (column) => column.props.label),
     ];
     const data =
       typeof sheet.props.data === "function"
         ? sheet.props.data()
         : sheet.props.data;
 
-    data.forEach(row => {
+    data.forEach((row) => {
       const sheetRow = [];
 
-      React.Children.forEach(columns, column => {
+      React.Children.forEach(columns, (column) => {
         const getValue =
           typeof column.props.value === "function"
             ? column.props.value
-            : row => row[column.props.value];
+            : (row) => row[column.props.value];
         const itemValue = getValue(row);
-        sheetRow.push(isNaN(itemValue) ? itemValue || "" : itemValue);
+        // sheetRow.push(isNaN(itemValue) ? itemValue || "" : itemValue);
+        sheetRow.push({
+          value: isNaN(itemValue) ? itemValue || "" : itemValue,
+          style: style,
+        });
       });
 
       sheetData.push(sheetRow);
@@ -81,12 +85,12 @@ class ExcelFile extends React.Component {
     const wb = {
       SheetNames: React.Children.map(
         this.props.children,
-        sheet => sheet.props.name
+        (sheet) => sheet.props.name
       ),
-      Sheets: {}
+      Sheets: {},
     };
 
-    React.Children.forEach(this.props.children, sheet => {
+    React.Children.forEach(this.props.children, (sheet) => {
       if (
         typeof sheet.props.dataSet === "undefined" ||
         sheet.props.dataSet.length === 0
@@ -106,13 +110,12 @@ class ExcelFile extends React.Component {
     const wbout = XLSX.write(wb, {
       bookType: fileExtension,
       bookSST: true,
-      type: "binary"
+      type: "binary",
     });
 
     saveAs(
       new Blob([strToArrBuffer(wbout)], {
-        type:
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       }),
       fileName
     );

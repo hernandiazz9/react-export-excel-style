@@ -1,28 +1,25 @@
 {
-  "name": "react-export-excel-style",
-  "version": "0.5.4",
+  "name": "react-export-excel-style-fixed",
+  "version": "0.5.5",
   "main": "dist/index.js",
   "description": "A tool to export dataset from react to excel format (fixed to style).",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rdcalle/react-export-excel.git"
+    "url": "git+https://github.com/orlandopamplona/react-export-excel-style"
   },
   "keywords": [
     "react-export-excel",
     "react-data-export",
     "react-dataset",
     "react-export",
-    "react-excel-export"
+    "react-excel-export",
+    "react-export-excel-style"
   ],
-  "author": "Ricardo Díaz <rdcalle@gmail.com>",
+  "author": "Orlando Pamplona Eing <orlandopamplona@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rdcalle/react-export-excel/issues"
-  },
-  "homepage": "https://github.com/rdcalle/react-export-excel#readme",
   "dependencies": {
     "file-saver": "^1.3.8",
-    "xlsx": "^git+https://github.com/securedeveloper/js-xlsx.git"
+    "xlsx": "git+https://github.com/securedeveloper/js-xlsx.git"
   },
   "devDependencies": {
     "@commitlint/cli": "^6.1.3",
