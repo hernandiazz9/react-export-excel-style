@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { saveAs } from "file-saver";
-import XLSX from "xlsx";
+import XLSX from "xlsx-style";
 
 import ExcelSheet from "../elements/ExcelSheet";
 import {

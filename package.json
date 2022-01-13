@@ -1,6 +1,6 @@
 {
   "name": "react-export-excel-style-fixed",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "main": "dist/index.js",
   "description": "A tool to export dataset from react to excel format (fixed to style).",
   "repository": {

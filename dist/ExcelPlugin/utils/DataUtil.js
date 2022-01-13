@@ -7,9 +7,9 @@ exports.excelSheetFromDataSet = exports.excelSheetFromAoA = exports.dateToNumber
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _xlsx = require("xlsx");
+var _xlsxStyle = require("xlsx-style");
 
-var _xlsx2 = _interopRequireDefault(_xlsx);
+var _xlsxStyle2 = _interopRequireDefault(_xlsxStyle);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66,7 +66,7 @@ var excelSheetFromDataSet = function excelSheetFromDataSet(dataSet) {
 
     if (columns.length >= 0) {
       columns.forEach(function (col, index) {
-        var cellRef = _xlsx2.default.utils.encode_cell({
+        var cellRef = _xlsxStyle2.default.utils.encode_cell({
           c: xSteps + index,
           r: rowCount
         });
@@ -79,7 +79,7 @@ var excelSheetFromDataSet = function excelSheetFromDataSet(dataSet) {
 
     for (var R = 0; R != data.length; ++R, rowCount++) {
       for (var C = 0; C != data[R].length; ++C) {
-        var cellRef = _xlsx2.default.utils.encode_cell({ c: C + xSteps, r: rowCount });
+        var cellRef = _xlsxStyle2.default.utils.encode_cell({ c: C + xSteps, r: rowCount });
         fixRange(range, R, C, rowCount, xSteps, ySteps);
         getCell(data[R][C], cellRef, ws);
       }
@@ -87,7 +87,7 @@ var excelSheetFromDataSet = function excelSheetFromDataSet(dataSet) {
   });
 
   if (range.s.c < 10000000) {
-    ws["!ref"] = _xlsx2.default.utils.encode_range(range);
+    ws["!ref"] = _xlsxStyle2.default.utils.encode_range(range);
   }
 
   // set column width
@@ -153,7 +153,7 @@ function getCell(v, cellRef, ws) {
     cell.t = "b";
   } else if (v instanceof Date) {
     cell.t = "n";
-    cell.z = _xlsx2.default.SSF._table[14];
+    cell.z = _xlsxStyle2.default.SSF._table[14];
     cell.v = dateToNumber(cell.v);
   } else if ((typeof v === "undefined" ? "undefined" : _typeof(v)) === "object") {
     cell.v = v.value;
@@ -210,7 +210,7 @@ var excelSheetFromAoA = function excelSheetFromAoA(data) {
         continue;
       }
 
-      var cellRef = _xlsx2.default.utils.encode_cell({ c: C, r: R });
+      var cellRef = _xlsxStyle2.default.utils.encode_cell({ c: C, r: R });
       if (_typeof(cell.v) === "object") {
         var _cell$v = cell.v,
             value = _cell$v.value,
@@ -224,7 +224,7 @@ var excelSheetFromAoA = function excelSheetFromAoA(data) {
         cell.t = "b";
       } else if (cell.v instanceof Date) {
         cell.t = "n";
-        cell.z = _xlsx2.default.SSF._table[14];
+        cell.z = _xlsxStyle2.default.SSF._table[14];
         cell.v = dateToNumber(cell.v);
       } else {
         cell.t = "s";
@@ -235,7 +235,7 @@ var excelSheetFromAoA = function excelSheetFromAoA(data) {
   }
 
   if (range.s.c < 10000000) {
-    ws["!ref"] = _xlsx2.default.utils.encode_range(range);
+    ws["!ref"] = _xlsxStyle2.default.utils.encode_range(range);
   }
 
   return ws;

@@ -1,4 +1,4 @@
-import XLSX from "xlsx";
+import XLSX from "xlsx-style";
 
 const strToArrBuffer = (s) => {
   var buf = new ArrayBuffer(s.length);
